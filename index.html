@@ -17,6 +17,24 @@
         function showMessage() {
             console.log("OK");
         }
+
+        // # PSEUDO CODE
+
+        const SECRET_KEY = "e5f247ba-0968-4197-9e3f-d07ebc095bd4"    // replace with your secret key
+        const VERIFY_URL = "https://hcaptcha.com/siteverify"
+
+        // # Retrieve token from post data with key 'h-captcha-response'.
+        const token = request.POST_DATA['h-captcha-response']
+
+        // # Build payload with secret key and token.
+        let data = { 'secret': SECRET_KEY, 'response': token }
+
+        // # Make POST request with data payload to hCaptcha API endpoint.
+        let response = http.post(url=VERIFY_URL, data=data)
+
+        // # Parse JSON from response. Check for success or error codes.
+        let response_json = JSON.parse(response.content)
+        let success = response_json['success']
     </script>
 </body>
 </html>
